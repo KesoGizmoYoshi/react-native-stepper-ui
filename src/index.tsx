@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { FC, useState, ReactElement, useEffect } from 'react';
 import {
   View,
@@ -16,7 +17,7 @@ export interface StepperProps {
   onFinish: Function;
   wrapperStyle?: ViewStyle;
   stepStyle?: ViewStyle;
-  stepLine?:ViewStyle;
+  stepLine?: ViewStyle;
   stepTextStyle?: TextStyle;
   buttonNextStyle?: ViewStyle;
   buttonBackStyle?: ViewStyle;
@@ -50,7 +51,7 @@ const Stepper: FC<StepperProps> = (props) => {
     showButton = true,
     nextButtonLabel,
     backButtonLabel,
-    finishButtonLabel
+    finishButtonLabel,
   } = props;
   const [step, setStep] = useState<number[]>([0]);
   const pushData = (val: number) => {
@@ -70,6 +71,7 @@ const Stepper: FC<StepperProps> = (props) => {
     } else {
       pushData(active);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   return (
@@ -86,13 +88,16 @@ const Stepper: FC<StepperProps> = (props) => {
             <React.Fragment key={i}>
               {i !== 0 && (
                 <View
-                  style={[{
-                    flex: 1,
-                    height: 1,
-                    backgroundColor: 'grey',
-                    opacity: 1,
-                    marginHorizontal: 10,
-                  },stepLine]}
+                  style={[
+                    {
+                      flex: 1,
+                      height: 1,
+                      backgroundColor: 'grey',
+                      opacity: 1,
+                      marginHorizontal: 10,
+                    },
+                    stepLine,
+                  ]}
                 />
               )}
               <View
@@ -120,18 +125,17 @@ const Stepper: FC<StepperProps> = (props) => {
                   >
                     &#10003;
                   </Text>
-                ) : (
-                  <Text
-                    style={[
-                      {
-                        color: 'white',
-                      },
-                      stepTextStyle,
-                    ]}
-                  >
-                    {i + 1}
-                  </Text>
-                )}
+                ) : // <Text
+                //   style={[
+                //     {
+                //       color: 'white',
+                //     },
+                //     stepTextStyle,
+                //   ]}
+                // >
+                //   {i + 1}
+                // </Text>
+                null}
               </View>
             </React.Fragment>
           );
@@ -165,7 +169,9 @@ const Stepper: FC<StepperProps> = (props) => {
                 onBack();
               }}
             >
-              <Text style={[{ color: 'white' }, buttonTextStyle]}>{ backButtonLabel }</Text>
+              <Text style={[{ color: 'white' }, buttonTextStyle]}>
+                {backButtonLabel}
+              </Text>
             </TouchableOpacity>
           )}
           {content.length - 1 !== active && (
@@ -185,7 +191,9 @@ const Stepper: FC<StepperProps> = (props) => {
                 onNext();
               }}
             >
-              <Text style={[{ color: 'white' }, buttonTextStyle]}>{ nextButtonLabel }</Text>
+              <Text style={[{ color: 'white' }, buttonTextStyle]}>
+                {nextButtonLabel}
+              </Text>
             </TouchableOpacity>
           )}
           {content.length - 1 === active && (
@@ -201,7 +209,9 @@ const Stepper: FC<StepperProps> = (props) => {
               ]}
               onPress={() => onFinish()}
             >
-              <Text style={[{ color: 'white' }, buttonTextStyle]}>{ finishButtonLabel }</Text>
+              <Text style={[{ color: 'white' }, buttonTextStyle]}>
+                {finishButtonLabel}
+              </Text>
             </TouchableOpacity>
           )}
         </View>
