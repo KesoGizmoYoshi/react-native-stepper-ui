@@ -20,6 +20,7 @@ const App = () => {
   const [active, setActive] = useState(0);
 
   return (
+    // eslint-disable-next-line react-native/no-inline-styles
     <View style={{ marginVertical: 80, marginHorizontal: 20 }}>
       <Stepper
         active={active}

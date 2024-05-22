@@ -78,6 +78,7 @@ const Stepper: FC<StepperProps> = (props) => {
         }}
       >
         {content.map((_, i) => {
+          const isActive = search(i, step);
           return (
             <React.Fragment key={i}>
               {i !== 0 && (
@@ -97,18 +98,21 @@ const Stepper: FC<StepperProps> = (props) => {
               <View
                 style={[
                   {
-                    backgroundColor: '#1976d2',
                     width: 30,
                     height: 30,
                     borderRadius: 30,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    opacity: search(i, step) ? 1 : 0.3,
+                    backgroundColor: isActive
+                      ? stepStyle?.backgroundColor || '#1976d2'
+                      : '#d3d3d3', // Use the stepStyle background color or a default color if active, and a different color if inactive
+                    opacity: isActive ? 1 : 0.3,
                   },
                   stepStyle,
+                  !isActive && { backgroundColor: '#d3d3d3' }, // Override the background color for inactive steps
                 ]}
               >
-                {search(i, step) ? (
+                {isActive ? (
                   <Text
                     style={[
                       {
