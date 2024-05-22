@@ -66,7 +66,7 @@ const Stepper: FC<StepperProps> = (props) => {
   };
 
   useEffect(() => {
-    if (step[step.length - 1] > active) {
+    if (step[step.length - 1] >= active) {
       removeData();
     } else {
       pushData(active);
