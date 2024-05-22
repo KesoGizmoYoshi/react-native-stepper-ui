@@ -70,65 +70,67 @@ const Stepper: FC<StepperProps> = (props) => {
 
   return (
     <View style={wrapperStyle}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {content.map((_, i) => {
-          const isActive = search(i, step);
-          return (
-            <React.Fragment key={i}>
-              {i !== 0 && (
+      {content.length >= 3 && (
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {content.map((_, i) => {
+            const isActive = search(i, step);
+            return (
+              <React.Fragment key={i}>
+                {i !== 0 && (
+                  <View
+                    style={[
+                      {
+                        flex: 1,
+                        height: 1,
+                        backgroundColor: 'grey',
+                        opacity: 1,
+                        marginHorizontal: 10,
+                      },
+                      stepLine,
+                    ]}
+                  />
+                )}
                 <View
                   style={[
                     {
-                      flex: 1,
-                      height: 1,
-                      backgroundColor: 'grey',
-                      opacity: 1,
-                      marginHorizontal: 10,
+                      width: 30,
+                      height: 30,
+                      borderRadius: 30,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      backgroundColor: isActive
+                        ? stepStyle?.backgroundColor || '#1976d2'
+                        : '#d3d3d3', // Use the stepStyle background color or a default color if active, and a different color if inactive
+                      opacity: isActive ? 1 : 0.3,
                     },
-                    stepLine,
+                    stepStyle,
+                    !isActive && { backgroundColor: '#d3d3d3' }, // Override the background color for inactive steps
                   ]}
-                />
-              )}
-              <View
-                style={[
-                  {
-                    width: 30,
-                    height: 30,
-                    borderRadius: 30,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: isActive
-                      ? stepStyle?.backgroundColor || '#1976d2'
-                      : '#d3d3d3', // Use the stepStyle background color or a default color if active, and a different color if inactive
-                    opacity: isActive ? 1 : 0.3,
-                  },
-                  stepStyle,
-                  !isActive && { backgroundColor: '#d3d3d3' }, // Override the background color for inactive steps
-                ]}
-              >
-                {isActive ? (
-                  <Text
-                    style={[
-                      {
-                        color: 'white',
-                      },
-                      stepTextStyle,
-                    ]}
-                  >
-                    &#10003;
-                  </Text>
-                ) : null}
-              </View>
-            </React.Fragment>
-          );
-        })}
-      </View>
+                >
+                  {isActive ? (
+                    <Text
+                      style={[
+                        {
+                          color: 'white',
+                        },
+                        stepTextStyle,
+                      ]}
+                    >
+                      &#10003;
+                    </Text>
+                  ) : null}
+                </View>
+              </React.Fragment>
+            );
+          })}
+        </View>
+      )}
       <ScrollView showsVerticalScrollIndicator={false}>
         {content[active]}
       </ScrollView>
