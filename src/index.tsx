@@ -54,24 +54,18 @@ const Stepper: FC<StepperProps> = (props) => {
     finishButtonLabel,
   } = props;
   const [step, setStep] = useState<number[]>([0]);
-  const pushData = (val: number) => {
-    setStep((prev) => [...prev, val]);
-  };
-
-  const removeData = () => {
-    setStep((prev) => {
-      prev.pop();
-      return prev;
-    });
-  };
 
   useEffect(() => {
-    if (step[step.length - 1] >= active) {
-      removeData();
-    } else {
-      pushData(active);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setStep((prev) => {
+      const newStep = prev.slice();
+      if (newStep[newStep.length - 1] > active) {
+        return newStep.slice(0, -1);
+      }
+      if (!newStep.includes(active)) {
+        newStep.push(active);
+      }
+      return newStep;
+    });
   }, [active]);
 
   return (
@@ -125,17 +119,7 @@ const Stepper: FC<StepperProps> = (props) => {
                   >
                     &#10003;
                   </Text>
-                ) : // <Text
-                //   style={[
-                //     {
-                //       color: 'white',
-                //     },
-                //     stepTextStyle,
-                //   ]}
-                // >
-                //   {i + 1}
-                // </Text>
-                null}
+                ) : null}
               </View>
             </React.Fragment>
           );
@@ -158,14 +142,11 @@ const Stepper: FC<StepperProps> = (props) => {
                   borderRadius: 4,
                   alignSelf: 'flex-start',
                   marginRight: 10,
-                },
-                buttonBackStyle,
-                {
                   backgroundColor: '#a1a1a1',
                 },
+                buttonBackStyle,
               ]}
               onPress={() => {
-                // removeData();
                 onBack();
               }}
             >
@@ -187,7 +168,6 @@ const Stepper: FC<StepperProps> = (props) => {
                 buttonNextStyle,
               ]}
               onPress={() => {
-                // pushData(active + 1);
                 onNext();
               }}
             >
