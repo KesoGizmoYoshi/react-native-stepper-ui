@@ -107,10 +107,10 @@ const Stepper: FC<StepperProps> = (props) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     borderWidth: 1,
-                    borderColor: 'gray',
+                    borderColor: 'grey',
                     backgroundColor: isActive
                       ? stepStyle?.backgroundColor || '#ffffff'
-                      : '#d3d3d3', // Use the stepStyle background color or a default color if active, and a different color if inactive
+                      : '#f0f0f0', // Use the stepStyle background color or a default color if active, and a different color if inactive
                     opacity: isActive ? 1 : 0.3,
                   },
                   stepStyle,
