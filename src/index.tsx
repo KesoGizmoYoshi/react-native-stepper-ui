@@ -114,7 +114,7 @@ const Stepper: FC<StepperProps> = (props) => {
                     opacity: isActive ? 1 : 0.3,
                   },
                   stepStyle,
-                  !isActive && { backgroundColor: '#d3d3d3' }, // Override the background color for inactive steps
+                  !isActive && { backgroundColor: '#ffffff' }, // Override the background color for inactive steps
                 ]}
               >
                 {isActive ? (
